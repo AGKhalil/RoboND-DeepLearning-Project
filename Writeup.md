@@ -2,13 +2,13 @@
 ## Architecture
 The network architecture used for this project is pretty simple. It is a Fully Convolutional Network (FCN) that consists of five layers: two encoders, one 1x1 convolution layer, and 2 decoders. Figure 1 contains a schematic of each layer and its dimensions respectively. Figure 2 contains the model summary.
 
-![Network_Architecture](/writeup_images/Network_Architecture.png)
+![Network_Architecture](https://github.com/AGKhalil/RoboND-DeepLearning-Project/blob/master/writeup_images/Network_Architecture.png)
 
 Basically what the network is doing here is first looking at finer details of the input image. Then with each layer, the network starts to combine its understanding of those features into more complex structures. With each layer, the network gets deeper, which means there are more filters working on understanding the many features in the image. The beauty of a FCN is that is takes a look at the fine details of the input without losing sight of their spatial locations. This is essential for this project as the drone is following someone.
 
 While designing the network, some parameters were chosen based on conceptual reasoning, some were experimental, and some were chosen just because. In this section I will explain the network architecture and the parameters chosen.
 
-![Model_Summary](/writeup_images/Model_Summary.png)
+![Model_Summary](https://github.com/AGKhalil/RoboND-DeepLearning-Project/blob/master/writeup_images/Model_Summary.png)
 
 ### Encoder Block
 Each encoder layer is essentially a separable convolution layer that is batch normalized. Separable convolutions are used to reduce the total number of parameters in the network, thereby decreasing its run time. They output the same result as a regular convolutional layer, but with better performance. Separable convolutions do this by decoupling the spatial and channel dimensions in creating the output. It first applies a `1x1xn` convolution on the input resulting in `n` feature maps with the same height and width of the input. Afterwards, a regular kernel is applied to each feature map to look at the spatial aspects. The final result is identical to a regular convolution layer, but with less parameters, thus better performance.
